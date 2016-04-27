@@ -1,6 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
 #include <string>
+
 struct Employee{ //basic employee struct, includes name senior and juniors
 	std::string name="";
 	int pay=0;
