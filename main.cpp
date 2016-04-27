@@ -6,6 +6,7 @@ void PrintMenu(){
 	cout<<"=====Main Menu====="<<endl;
 	cout<<"1. Quit"<<endl;
 	cout<<"2. Add Employee"<<endl;
+	cout<<"3. Find Employee"<<endl;
 }
 
 int main(int argc, char ** argv){
@@ -32,13 +33,15 @@ int main(int argc, char ** argv){
 				getline(cin,pay);
 				cout<<"Enter name of senior: "<<endl;
 				getline(cin,senior);
-				cout<<"Enter name of outranking co-worker"<<endl;
+				cout<<"Enter name of outranking co-worker: "<<endl;
 				getline(cin,uprank);
 				Business.addEmployee(name,stoi(pay),senior,uprank);	
 			}
 			else{
 				if(in==3){
-				
+					cout<<"Enter name of employee: "<<endl;
+					getline(cin,name);
+					Business.findEmployee(name);
 				}
 			}
 		}
