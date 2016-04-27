@@ -38,6 +38,26 @@ Tree::Tree(string filename){//initializes tree with boss node
 	
 }
 
+void Tree::findEmployee(string name){
+	Employee *worker=search(name,boss);
+	if(worker==nullptr){
+		cout<<"Employee not found"<<endl;
+	}
+	else{
+		cout<<"Employee info"<<endl;
+		cout<<"============="<<endl;
+		cout<<"Name: "<<worker->name<<endl;
+		cout<<"Pay: $"<<worker->pay*1000<<endl;
+		cout<<"Senior: ";
+		if(worker==boss){
+			cout<<"none"<<endl;
+		}
+		else{
+			cout<<worker->senior->name<<endl;
+		}
+	}
+}
+
 Employee *Tree::addEmployee(string name, int salary, string senior, string uprank){
 	Employee *head=search(senior,boss);
 	Employee *rank=search(uprank,boss);
@@ -78,6 +98,8 @@ Employee *Tree::search(string name,Employee *root){
 	}
 	return ans;
 }
+
+
 Tree::~Tree(){
 	
 }
