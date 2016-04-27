@@ -12,7 +12,7 @@ Employee *Tree::addEmployee(string name, int salary, string senior, string upran
 	Employee *head=search(senior,boss);
 	Employee *rank=search(uprank,boss);
 	Employee *add=new Employee(name,salary,head);
-	add->previous=rank;
+	add->next=rank;
 	if(head==0){
 		cout<<"Not real senior, try again"<<endl;
 	}
@@ -21,8 +21,8 @@ Employee *Tree::addEmployee(string name, int salary, string senior, string upran
 			head->juniors=add;
 		}
 		if(rank!=nullptr){
-			add->next=rank->next;
-			rank->next=add;
+			add->previous=rank->previous;
+			rank->previous=add;
 		}
 	}
 	return add;
