@@ -37,7 +37,7 @@ int main(int argc, char ** argv){
 				getline(cin,pay);
 				cout<<"Enter name of senior: "<<endl;
 				getline(cin,senior);
-				cout<<"Enter name of outranked co-worker"<<endl;
+				cout<<"Enter name of outranking co-worker"<<endl;
 				getline(cin,uprank);
 				Business.addEmployee(name,stoi(pay),senior,uprank);	
 			}
