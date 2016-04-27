@@ -23,15 +23,15 @@ struct Employee{ //basic employee struct, includes name senior and juniors
 class Tree
 {
 	public:
-		Tree();
+		Tree(std::string name, int salary);
 		~Tree();
 		
 		void findEmployee(std::string name);//finds and displays information of employee
-		void addEmployee(std::string name, int salary, std::string senior, std::string uprank);//adds employee to tree
+		Employee * addEmployee(std::string name, int salary, std::string senior, std::string uprank);//adds employee to tree
 		void replaceEmployee(std::string name, std::string replacement);//removes employee from tree and replaces them
 		void promoteEmployee(std::string name);//moves employee up one step in tree
 		void modifyEmployee(std::string name, int salary, std::string uprank);//changes employee's rank and/or salary
-		void shiftEmployees(std::string name, std::junior);//moves junior employees to another senior.
+		void shiftEmployees(std::string name, std::string junior);//moves junior employees to another senior.
 		
 		void listEmployees();//prints out all employees in list
 		void printEmployees();//prints out all employees in tree
@@ -41,7 +41,7 @@ class Tree
 	protected:
 	private:
 		Employee *boss;//root of employee tree
-		Employee *search(std::string name);//find pointer to specific employee
+		Employee *search(std::string name,Employee *root);//find pointer to specific employee starting from root
 };
 
 #endif
