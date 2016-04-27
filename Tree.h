@@ -24,7 +24,7 @@ struct Employee{ //basic employee struct, includes name senior and juniors
 class Tree
 {
 	public:
-		Tree(std::string name, int salary);
+		Tree(std::string filename);
 		~Tree();
 		
 		void findEmployee(std::string name);//finds and displays information of employee

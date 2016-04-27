@@ -15,12 +15,7 @@ int main(int argc, char ** argv){
 	string uprank="";
 	string input="";
 	int in=-1;
-	
-	cout<<"Building new business \n\n\nEnter name of boss: "<<endl;
-	getline(cin,name);
-	cout<<"Enter pay: "<<endl;
-	getline(cin,pay);
-	Tree Business(name,stoi(pay));
+	Tree Business(argv[1]);
 	
 	while(in!=1){
 		PrintMenu();

@@ -1,7 +1,7 @@
 Snake,500
-Ocelot,200,Snake,,
+Ocelot,200,Snake,
 Miller,300,Snake,Ocelot
-Quiet,50,Ocelot,,
-Paz,12,Miller,,
+Quiet,50,Ocelot,
+Paz,12,Miller,
 Roy,56,Ocelot,Quiet
 Ourboy,69,Ocelot,Roy

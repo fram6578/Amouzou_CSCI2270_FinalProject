@@ -1,11 +1,41 @@
 #include "Tree.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 
-Tree::Tree(string name, int pay){//initializes tree with boss node
-	boss=new Employee(name,pay, nullptr);
+Tree::Tree(string filename){//initializes tree with boss node
+	ifstream inFile;
+	inFile.open(filename);
+	
+	int comma=0;
+	string line="";
+	string name="";
+	string pay="";
+	string senior="";
+	string uprank="";
+	
+	if (inFile.good()){
+		getline(inFile,line);
+		comma=line.find(",",0);
+		name=line.substr(0,comma); 
+		comma++;
+		pay=line.substr(comma,line.length()-comma);
+		boss=new Employee(name,stoi(pay), nullptr);
+		while(getline(inFile,line)){
+			comma=line.find(",",0);
+			name=line.substr(0,comma);
+			comma++;
+			pay=line.substr(comma,line.find(",",comma+1)-comma);
+			comma=line.find(",",comma)+1;
+			senior=line.substr(comma,line.find(",",comma+1)-comma);
+			comma=line.find(",",comma)+1;
+			uprank=line.substr(comma,line.length()-comma);
+			addEmployee(name,stoi(pay),senior,uprank);
+		}
+	}
+	
 }
 
 Employee *Tree::addEmployee(string name, int salary, string senior, string uprank){
@@ -13,7 +43,7 @@ Employee *Tree::addEmployee(string name, int salary, string senior, string upran
 	Employee *rank=search(uprank,boss);
 	Employee *add=new Employee(name,salary,head);
 	add->next=rank;
-	if(head==0){
+	if(head==nullptr){
 		cout<<"Not real senior, try again"<<endl;
 	}
 	else{
@@ -23,6 +53,9 @@ Employee *Tree::addEmployee(string name, int salary, string senior, string upran
 		if(rank!=nullptr){
 			add->previous=rank->previous;
 			rank->previous=add;
+			if(head->juniors==rank){
+				head->juniors=add;
+			}
 		}
 	}
 	return add;
