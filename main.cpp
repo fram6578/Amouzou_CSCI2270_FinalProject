@@ -7,6 +7,7 @@ void PrintMenu(){
 	cout<<"1. Quit"<<endl;
 	cout<<"2. Add Employee"<<endl;
 	cout<<"3. Find Employee"<<endl;
+	cout<<"4. List EmployeeS"<<endl;
 }
 
 int main(int argc, char ** argv){
@@ -42,6 +43,11 @@ int main(int argc, char ** argv){
 					cout<<"Enter name of employee: "<<endl;
 					getline(cin,name);
 					Business.findEmployee(name);
+				}
+				else{
+					if(in==4){
+						Business.listEmployee();
+					}
 				}
 			}
 		}
