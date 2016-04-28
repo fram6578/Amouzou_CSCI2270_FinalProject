@@ -141,6 +141,17 @@ void Tree::list(Employee *root){
 	}
 }
 
+void Tree::printEmployees(){
+	print(boss);
+}
+
+void Tree::print(Employee *root){
+}
+
+int Tree::maxDepth(){
+	
+}
+
 Tree::~Tree(){
 	
 }

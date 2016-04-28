@@ -45,7 +45,7 @@ class Tree
 		Employee *search(std::string name,Employee *root);//find pointer to specific employee starting from root
 		void list(Employee *root);//function for recursive employee listing
 		void print(Employee *root);//function for recursive employee printing
-		int maxDepth ();//function finds max depth of tree
+		int maxDepth();//function finds max depth of tree
 };
 
 #endif
