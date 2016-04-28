@@ -43,6 +43,7 @@ class Tree
 	private:
 		Employee *boss;//root of employee tree
 		Employee *search(std::string name,Employee *root);//find pointer to specific employee starting from root
+		void list(Employee *root);//function for recursive employee print
 };
 
 #endif
