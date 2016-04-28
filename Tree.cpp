@@ -114,7 +114,18 @@ Employee *Tree::search(string name,Employee *root){
 }
 
 void Tree::listEmployees(){
-	
+	list(boss);
+}
+
+void Tree::list(Employee *root){
+	Employee *temp=root;
+	while(temp!=nullptr){
+		cout<<temp->name<<endl;
+		if(temp->juniors!=nullptr){
+			list(temp->juniors);
+		}
+		temp=temp->next;
+	}
 }
 
 Tree::~Tree(){
