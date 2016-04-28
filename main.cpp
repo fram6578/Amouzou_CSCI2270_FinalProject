@@ -46,7 +46,7 @@ int main(int argc, char ** argv){
 				}
 				else{
 					if(in==4){
-						Business.listEmployee();
+						Business.listEmployees();
 					}
 				}
 			}
