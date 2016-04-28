@@ -55,6 +55,20 @@ void Tree::findEmployee(string name){
 		else{
 			cout<<worker->senior->name<<endl;
 		}
+		cout<<"Manages: ";
+		Employee *temp=worker->juniors;
+		if(temp==nullptr){
+			cout<<"none"<<endl;
+		}
+		else{
+			cout<<temp->name;
+			temp=temp->next;
+			while(temp!=nullptr){
+				cout<<", "<<temp->name;
+				temp=temp->next;
+			}
+			cout<<endl;
+		}
 	}
 }
 
@@ -99,6 +113,9 @@ Employee *Tree::search(string name,Employee *root){
 	return ans;
 }
 
+void Tree::listEmployees(){
+	
+}
 
 Tree::~Tree(){
 	
