@@ -152,19 +152,40 @@ void Tree::printEmployees(){
 	Employee *temp=boss;
 	int delim=10;
 	int offset=0;
+	int start=0;
+	int shift=0;
+	string branches;
 	names.clear();
 	names.resize(maxDepth(boss));
 	print(boss);
 	for(int i=0;i<names.size();i++){
+		branches="";
 		for(int n=0;n<names[i].size();n++){
 			temp=names[i][n];
-			offset=temp->breath;
-			if(offset==0){
-				offset=1;
+			offset=maxBreath(temp);
+			if(temp->senior != nullptr and temp==temp->senior->juniors and vectorIn(temp->senior)>n){
+				start=vectorIn(temp->senior)-vectorIn(names[i][n-1]->senior)-1;
+			}
+			else{
+				start=0;
+			}
+			cout<<setw(delim*start)<<left<<"";
+			branches+=(string(delim*(start),' '));
+			if(temp->next!=nullptr){
+				cout<<setfill('-');
+			}
+			else{
+				cout<<setfill(' ');
 			}
 			cout<<setw(delim*offset)<<left<<temp->name;
+			shift=delim*offset;
+			if(temp->juniors!=nullptr){
+				branches+=("|");
+				shift--;
+			}
+			branches+=string(shift,' ');
 		}
-		cout<<endl;
+		cout<<endl<<branches<<endl;
 	}
 }
 int Tree::vectorIn(Employee *root){
@@ -188,19 +209,22 @@ void Tree::print(Employee *root){
 }
 
 int Tree::maxBreath(Employee *root){
-	int climb=0;
+	int crawl=0;
 	Employee *temp=root;
 	if(root!=nullptr){
-		climb=root->breath;
+		crawl=root->breath;
 	}
 	temp=root->juniors;
 	while(temp!=nullptr){
 		if(maxBreath(temp)!=0){
-			climb+=maxBreath(temp)-1;
+			crawl+=maxBreath(temp)-1;
 		}
 		temp=temp->next;
 	}
-	return climb;
+	if(crawl==0){
+		crawl=1;
+	}
+	return crawl;
 }
 
 int Tree::maxDepth(Employee *root){
