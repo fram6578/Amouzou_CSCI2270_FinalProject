@@ -1,11 +1,14 @@
 #ifndef TREE_H
 #define TREE_H
 #include <string>
+#include <vector>
 #include <iostream>
 
 struct Employee{ //basic employee struct, includes name senior and juniors
 	std::string name="";
-	int pay=0;
+	int pay=-1;
+	int breath=0;
+	int depth=-1;
 	
 	Employee *senior=NULL;//points to senior
 	Employee *juniors=NULL;//points to head of linked list of juniors
@@ -45,7 +48,10 @@ class Tree
 		Employee *search(std::string name,Employee *root);//find pointer to specific employee starting from root
 		void list(Employee *root);//function for recursive employee listing
 		void print(Employee *root);//function for recursive employee printing
-		int maxDepth();//function finds max depth of tree
+		int maxDepth(Employee *root);//function finds max depth of tree
+		int maxBreath(Employee *root);
+		int vectorIn(Employee *root);
+		std::vector < std::vector < Employee* > > names;
 };
 
 #endif

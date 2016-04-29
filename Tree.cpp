@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
+#include <iomanip>
 using namespace std;
 
 
@@ -23,6 +25,7 @@ Tree::Tree(string filename){//initializes tree with boss node
 		comma++;
 		pay=line.substr(comma,line.length()-comma);
 		boss=new Employee(name,stoi(pay), nullptr);
+		boss->depth=0;
 		while(getline(inFile,line)){
 			comma=line.find(",",0);
 			name=line.substr(0,comma);
@@ -79,6 +82,8 @@ Employee *Tree::addEmployee(string name, int salary, string senior, string upran
 		cout<<"Not real senior, try again"<<endl;
 	}
 	else{
+		head->breath++;
+		add->depth=head->depth+1;
 		Employee *rank=search(uprank,head);
 		add->next=rank;
 		if(head->juniors==nullptr){
@@ -113,12 +118,14 @@ Employee *Tree::search(string name,Employee *root){
 	Employee *ans=nullptr;
 	while(temp!=nullptr){
 		if(temp->name.compare(name)==0){
-			ans=temp;
-			temp=nullptr;
+			return temp;
 		}
 		else{
 			if(temp->juniors!=nullptr){
 				ans=search(name,temp->juniors);
+				if(ans!=nullptr and ans->name.compare(name)==0){
+					return ans;
+				}
 			}
 			temp=temp->next;
 		}
@@ -142,14 +149,73 @@ void Tree::list(Employee *root){
 }
 
 void Tree::printEmployees(){
+	Employee *temp=boss;
+	int delim=10;
+	int offset=0;
+	names.clear();
+	names.resize(maxDepth(boss));
 	print(boss);
+	for(int i=0;i<names.size();i++){
+		for(int n=0;n<names[i].size();n++){
+			temp=names[i][n];
+			offset=temp->breath;
+			if(offset==0){
+				offset=1;
+			}
+			cout<<setw(delim*offset)<<left<<temp->name;
+		}
+		cout<<endl;
+	}
 }
-
+int Tree::vectorIn(Employee *root){
+	int ans=0;
+	for(int i=0;i<names.size();i++){
+		for(int n=0;n<names[i].size();n++){
+			if(names[i][n]==root){
+				ans=n;
+			}
+		}
+	}
+	return ans;
+}
 void Tree::print(Employee *root){
+	Employee *temp=root;
+	while(temp!=nullptr){
+		print(temp->juniors);
+		names[temp->depth].push_back(temp);
+		temp=temp->next;
+	}
 }
 
-int Tree::maxDepth(){
-	
+int Tree::maxBreath(Employee *root){
+	int climb=0;
+	Employee *temp=root;
+	if(root!=nullptr){
+		climb=root->breath;
+	}
+	temp=root->juniors;
+	while(temp!=nullptr){
+		if(maxBreath(temp)!=0){
+			climb+=maxBreath(temp)-1;
+		}
+		temp=temp->next;
+	}
+	return climb;
+}
+
+int Tree::maxDepth(Employee *root){
+	int climb=0;
+	Employee *temp=root;
+	while(temp!=nullptr){
+		if(climb<maxDepth(temp->juniors)){
+			climb=maxDepth(temp->juniors);
+		}
+		temp=temp->next;
+	}
+	if(root!=nullptr){
+		climb++;
+	}
+	return climb;
 }
 
 Tree::~Tree(){
