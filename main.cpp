@@ -29,12 +29,12 @@ int main(int argc, char ** argv){
 		}
 		else{
 			if(in==2){
+				cout<<"Enter name of senior: "<<endl;
+				getline(cin,senior);
 				cout<<"Enter name of employee: "<<endl;
 				getline(cin,name);
 				cout<<"Enter pay: "<<endl;
 				getline(cin,pay);
-				cout<<"Enter name of senior: "<<endl;
-				getline(cin,senior);
 				cout<<"Enter name of outranking co-worker: "<<endl;
 				getline(cin,uprank);
 				Business.addEmployee(name,stoi(pay),senior,uprank);	

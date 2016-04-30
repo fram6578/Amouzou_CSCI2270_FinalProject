@@ -151,34 +151,34 @@ void Tree::list(Employee *root){
 void Tree::printEmployees(){
 	Employee *temp=boss;
 	int delim=10;
-	int offset=0;
-	int start=0;
 	int shift=0;
 	string branches;
 	names.clear();
 	names.resize(maxDepth(boss));
-	print(boss);
+	makevector(boss);
 	for(int i=0;i<names.size();i++){
 		branches="";
 		for(int n=0;n<names[i].size();n++){
 			temp=names[i][n];
-			offset=maxBreath(temp);
-			if(temp->senior != nullptr and temp==temp->senior->juniors and vectorIn(temp->senior)>n){
-				start=vectorIn(temp->senior)-vectorIn(names[i][n-1]->senior)-1;
+			shift=0;
+			if(temp->senior!=nullptr and temp==temp->senior->juniors){
+				shift=position(temp);
+				if(n>0){
+					shift-=position(names[i][n-1]);
+					shift--;
+				}
+				shift*=delim;
 			}
-			else{
-				start=0;
-			}
-			cout<<setw(delim*start)<<left<<"";
-			branches+=(string(delim*(start),' '));
+			cout<<setw(shift)<<left<<"";
+			branches+=(string(shift,' '));
 			if(temp->next!=nullptr){
 				cout<<setfill('-');
 			}
 			else{
 				cout<<setfill(' ');
 			}
-			cout<<setw(delim*offset)<<left<<temp->name;
-			shift=delim*offset;
+			shift=delim*maxBreath(temp);
+			cout<<setw(shift)<<left<<temp->name;
 			if(temp->juniors!=nullptr){
 				branches+=("|");
 				shift--;
@@ -188,21 +188,38 @@ void Tree::printEmployees(){
 		cout<<endl<<branches<<endl;
 	}
 }
-int Tree::vectorIn(Employee *root){
+
+int Tree::position(Employee *root){
 	int ans=0;
-	for(int i=0;i<names.size();i++){
-		for(int n=0;n<names[i].size();n++){
-			if(names[i][n]==root){
-				ans=n;
+	Employee *climber=root;
+	Employee *stepper=root;
+	while(climber->senior!=nullptr and climber->senior->senior != nullptr){
+		stepper=climber->senior->senior->juniors;
+		while(stepper!=climber->senior){
+			if(stepper->breath==0){
+				ans+=1;
 			}
+			else{
+				ans+=(stepper->breath);
+			}
+			stepper=stepper->next;
+		}
+		climber=climber->senior;
+	}
+	if(root->senior!=nullptr and root!=root->senior->juniors){
+		stepper=root->senior->juniors;
+		while(stepper!=root){
+			ans++;
+			stepper=stepper->next;
 		}
 	}
 	return ans;
 }
-void Tree::print(Employee *root){
+
+void Tree::makevector(Employee *root){
 	Employee *temp=root;
 	while(temp!=nullptr){
-		print(temp->juniors);
+		makevector(temp->juniors);
 		names[temp->depth].push_back(temp);
 		temp=temp->next;
 	}
