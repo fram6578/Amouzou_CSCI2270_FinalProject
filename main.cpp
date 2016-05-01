@@ -123,26 +123,34 @@ void HelpMenu(int stop){
 												cout<<endl;
 											}
 											else{
-												if(in==12){
+												if(in==11){
 													cout<<endl;
-													cout<<"Welcome to my employee tree program"<<endl;
+													cout<<"Fire Employee"<<endl;
+													cout<<"Only employees with no subordinates can be fired"<<endl;
 													cout<<endl;
-													cout<<"Each employee node on the tree has 3 types of neighbooring nodes"<<endl;
-													cout<<"A superior: which is its parent\nTeam members, which are its next/previous nodes\nAnd subordinates, which are its children"<<endl;
-													cout<<"The node's 'pay' is an int that reflects the employee's salary in grand";
-													cout<<endl;
-													cout<<"Navigate menus by typing in the number of the desired option"<<endl;
-													cout<<"Numerical menu navigation is sensitive"<<endl;
-													cout<<"Whenever a numerical value is expected entering letters or punction or leaving it blank causes an stoi() error"<<endl;
-													cout<<"This includes entering pay values (except when changing employee information where the blank error is handled) and menu values"<<endl;
-													cout<<endl;
-													cout<<"The intial tree is built from a text file containing the employee names and information"<<endl;
-													cout<<"The boss node can and should only be changed from the txt file on which it is the first line"<<endl;
-													
 												}
 												else{
-													if(in!=0){
-														cout<<"Invalid input"<<endl;
+													if(in==12){
+														cout<<endl;
+														cout<<"Welcome to my employee tree program"<<endl;
+														cout<<endl;
+														cout<<"Each employee node on the tree has 3 types of neighbooring nodes"<<endl;
+														cout<<"A superior: which is its parent\nTeam members, which are its next/previous nodes\nAnd subordinates, which are its children"<<endl;
+														cout<<"The node's 'pay' is an int that reflects the employee's salary in grand";
+														cout<<endl;
+														cout<<"Navigate menus by typing in the number of the desired option"<<endl;
+														cout<<"Numerical menu navigation is sensitive"<<endl;
+														cout<<"Whenever a numerical value is expected entering letters or punction or leaving it blank causes an stoi() error"<<endl;
+														cout<<"This includes entering pay values (except when changing employee information where the blank error is handled) and menu values"<<endl;
+														cout<<endl;
+														cout<<"The intial tree is built from a text file containing the employee names and information"<<endl;
+														cout<<"The boss node can and should only be changed from the txt file on which it is the first line"<<endl;
+														
+													}
+													else{
+														if(in!=0){
+															cout<<"Invalid input"<<endl;
+														}
 													}
 												}
 											}
