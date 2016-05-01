@@ -21,13 +21,11 @@ Download the Trees.h,Trees.cpp, main.cpp, and workers.txt files in one folder. O
 The text file should be formatted as such: First line is just boss's name and pay in thousands. Proceeding lines are employees with the name of their superior, themselves, their pay in thousands, and their senior. If there is no senior leave that entry blank. Each entry should be separated by just a comma. No decimals or letters in the pay entry, just the number in integer form.
 
 Example
-==========================
-Snake,500
 
-Snake,Ocelot,50,
+Snake,500  
+Snake,Ocelot,50,  
+Snake,Miller,120,Ocelot  
 
-Snake,Miller,120,Ocelot
-=========================
 System Requirements:
 
 Must be linux, preferable ubuntu.
