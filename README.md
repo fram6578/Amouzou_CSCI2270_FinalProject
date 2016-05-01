@@ -18,13 +18,17 @@ How to run:
 
 Download the Trees.h,Trees.cpp, main.cpp, and workers.txt files in one folder. Or just download the repository as a whole. In terminal, cd to the folder with the files and compile using the command "g++ -std=c++11 *.cpp". This should create an a.out file. Now run the a.out file using the command "./a.out filename" where 'filename' is the workers.txt or any file you'd like to test. This should run the program, to learn how to use the program type in 0 for help and then 12 for general directions.
 
+
 The text file should be formatted as such: First line is just boss's name and pay in thousands. Proceeding lines are employees with the name of their superior, themselves, their pay in thousands, and their senior. If there is no senior leave that entry blank. Each entry should be separated by just a comma. No decimals or letters in the pay entry, just the number in integer form.
 
-Example\n\n
+Example
 
-Snake,500\n
-Snake,Ocelot,50,\n
-Snake,Miller,120,Ocelot\n
+Snake,500
+
+Snake,Ocelot,50,
+
+Snake,Miller,120,Ocelot
+
 
 System Requirements:
 
