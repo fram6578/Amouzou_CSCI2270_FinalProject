@@ -1,14 +1,14 @@
 New snake,500
-Snake,500,New snake,
-Ocelot,200,Snake,
-Miller,300,Snake,Ocelot
-Quiet,50,Ocelot,
-Paz,12,Miller,
-Roy,56,Ocelot,Quiet
-Ourboy,69,Ocelot,Roy
-Jake,12,Ourboy,
-Bob,12,Quiet,
-Cute,14,Paz,
-Jeepers,12,Ocelot,
-Netflix,24,Miller,
-Testing,13,Quiet,
+New snake,Snake,500,
+Snake,Ocelot,200,
+Snake,Miller,300,Ocelot
+Ocelot,Quiet,50,
+Miller,Paz,12,
+Ocelot,Roy,56,Quiet
+Ocelot,Ourboy,69,Roy
+Ourboy,Jake,12,
+Quiet,Bob,12,
+Paz,Cute,14,
+Ocelot,Jeepers,12,
+Miller,Netflix,24,
+Quiet,Testing,13,
