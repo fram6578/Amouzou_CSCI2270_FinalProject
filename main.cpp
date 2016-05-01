@@ -129,7 +129,7 @@ void HelpMenu(int stop){
 													cout<<endl;
 													cout<<"Each employee node on the tree has 3 types of neighbooring nodes"<<endl;
 													cout<<"A superior: which is its parent\nTeam members, which are its next/previous nodes\nAnd subordinates, which are its children"<<endl;
-													cout<<"The node's 'pay' is an int that reflects the employee's salary in grand"
+													cout<<"The node's 'pay' is an int that reflects the employee's salary in grand";
 													cout<<endl;
 													cout<<"Navigate menus by typing in the number of the desired option"<<endl;
 													cout<<"Numerical menu navigation is sensitive"<<endl;

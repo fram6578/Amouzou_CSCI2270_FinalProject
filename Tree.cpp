@@ -201,65 +201,66 @@ int Tree::position(Employee *node){
 	Employee *stepper=node;//this variables goes across the tree
 	while(climber->superior!=nullptr and climber->superior->superior != nullptr){//until the climber variable reaches the top of the tree
 		stepper=climber->superior->superior->juniors;
-		while(stepper!=climber->superior){
-			if(stepper->breath==0){
+		while(stepper!=climber->superior){//step climbers least senior uncle until it reaches climbers parent
+			if(stepper->breath==0){//add the breath of the climber's uncles
 				ans+=1;
 			}
 			else{
 				ans+=(stepper->breath);
 			}
-			stepper=stepper->next;
+			stepper=stepper->next;//step across
 		}
-		climber=climber->superior;
+		climber=climber->superior;//climb up
 	}
-	if(node->superior!=nullptr and node!=node->superior->juniors){
+	if(node->superior!=nullptr and node!=node->superior->juniors){//same as above but stepping through the nodes neighbors
 		stepper=node->superior->juniors;
 		while(stepper!=node){
 			ans++;
 			stepper=stepper->next;
 		}
 	}
-	return ans;
+	return ans;//return position
 }
 
 void Tree::makevector(Employee *root){
-	Employee *temp=root;
-	while(temp!=nullptr){
-		makevector(temp->juniors);
-		names[temp->depth].push_back(temp);
-		temp=temp->next;
+	Employee *temp=root;//initialize temporary
+	while(temp!=nullptr){//until looped through all neighbors
+		makevector(temp->juniors);//loop through node's children
+		names[temp->depth].push_back(temp);//add node to 2D vector
+		temp=temp->next;//iterate
 	}
 }
 
-int Tree::maxBreath(Employee *root){
-	int crawl=0;
-	Employee *temp=root;
-	if(root!=nullptr){
-		crawl=root->breath;
+int Tree::maxBreath(Employee *node){
+	int crawl=0;//intialize return value and temporary
+	Employee *temp=node;
+	
+	if(node!=nullptr){//if node exists add its breath
+		crawl=node->breath;
 	}
-	temp=root->juniors;
-	while(temp!=nullptr){
-		if(maxBreath(temp)!=0){
+	temp=node->juniors;//set temp to the nodes children
+	while(temp!=nullptr){//until looped through all children
+		if(maxBreath(temp)!=0){//add the maximum breath of the children
 			crawl+=maxBreath(temp)-1;
 		}
-		temp=temp->next;
+		temp=temp->next;//iterate
 	}
-	if(crawl<=0){
+	if(crawl<=0){//since print statements need some width to print, even nodes with no breath contribute
 		crawl=1;
 	}
 	return crawl;
 }
 
 int Tree::maxDepth(Employee *root){
-	int climb=0;
+	int climb=0;//intialize temporary and return value
 	Employee *temp=root;
-	while(temp!=nullptr){
+	while(temp!=nullptr){//loop through children
 		if(climb<maxDepth(temp->juniors)){
 			climb=maxDepth(temp->juniors);
 		}
 		temp=temp->next;
 	}
-	if(root!=nullptr){
+	if(root!=nullptr){//if not a null node increment return value
 		climb++;
 	}
 	return climb;
@@ -269,16 +270,17 @@ void Tree::promoteEmployee(string name){
 	Employee *worker=search(name,boss);
 	Employee *temp=worker;
 	Employee *add=worker;
-	if(worker!=nullptr){
-		if(worker->superior==nullptr){
+	if(worker!=nullptr){//if found exception
+		if(worker->superior==nullptr){//boss exception
 			cout<<"Already highest position, can't be promoted"<<endl;
 		}
 		else{
-			if(worker->superior->superior==nullptr){
+			if(worker->superior->superior==nullptr){//another boss exception
 				cout<<"Can't promote to highest position"<<endl;
 			}
 			else{
-				if(worker->juniors==nullptr){
+				if(worker->juniors==nullptr){//children exception
+					//the next three if statements essentially delete the original node while maintaining its information
 					if(worker->next!=nullptr){
 						worker->next->previous=worker->previous;
 					}
@@ -288,6 +290,7 @@ void Tree::promoteEmployee(string name){
 					if(worker==worker->superior->juniors){
 						worker->superior->juniors=worker->next;
 					}
+					//now the node is added back in except underneath a new superior
 					worker->superior=worker->superior->superior;
 					worker->next=worker->superior->juniors;
 					if(worker->next!=nullptr){
@@ -311,22 +314,22 @@ void Tree::shiftEmployees(std::string name, std::string target){
 	Employee *temp=worker;
 	Employee *add=search(target,boss);
 	Employee *climb=worker;
-	if(worker==nullptr or add==nullptr){
+	if(worker==nullptr or add==nullptr){//invalid input exception
 		cout<<"Source or destination invalid"<<endl;
 	}
 	else{
-		if(add==worker->superior or add->superior==worker){
+		if(add==worker->superior or add->superior==worker){//direct subordinate/superior exception (since not excepted this would make nodes loop infinitely through themselves)
 			cout<<"Can't shift employees from/to current superior"<<endl;
 		}
-		else{
+		else{//add all of the intial nodes children to before the least senior of the new node childrens
 			temp=worker;
 			if(add->juniors!=nullptr){
-				if(worker->juniors==nullptr){
+				if(worker->juniors==nullptr){//if no children just copy over children
 					worker->juniors=add->juniors;
 				}
 				else{
 					temp=worker->juniors;
-					while(temp!=nullptr and temp->next!=nullptr){
+					while(temp!=nullptr and temp->next!=nullptr){//link the two list accordingly
 						temp=temp->next;
 					}
 					temp->next=add->juniors;
@@ -336,11 +339,11 @@ void Tree::shiftEmployees(std::string name, std::string target){
 			add->juniors=worker->juniors;
 			add->breath+=worker->breath;
 			temp=worker->juniors;
-			while(temp!=nullptr){
+			while(temp!=nullptr){//delete intial nodes children now that they have been copied
 				temp->superior=add;
 				temp=temp->next;
 			}
-			depthAdd(add->juniors);
+			depthAdd(add->juniors);//update depth for all children
 			worker->juniors=nullptr;
 			worker->breath=0;
 		}
@@ -348,23 +351,23 @@ void Tree::shiftEmployees(std::string name, std::string target){
 }
 void Tree::depthAdd(Employee *root){
 	Employee *temp=root;
-	while(temp!=nullptr){
+	while(temp!=nullptr){//for all children underneath root node update the depth parameter
 		temp->depth=temp->superior->depth+1;
 		depthAdd(temp->juniors);
 		temp=temp->next;
 	}
 }
 
-void Tree::modifyEmployee(string name,string newname, string salary){
+void Tree::modifyEmployee(string name,string newname, string salary){//pay is a string parameter so that a blank string exception can be handled
 	Employee *worker=search(name,boss);
-	if(worker==nullptr){
+	if(worker==nullptr){//found employee exception
 		cout<<"Employee not found"<<endl;
 	}
 	else{
-		if(!newname.empty()){
+		if(!newname.empty()){//if empty leave alone otherwise update name
 			worker->name=newname;
 		}
-		if(!salary.empty()){
+		if(!salary.empty()){//if empty leave alone otherwise update price
 			worker->pay=stoi(salary);
 		}
 	}
@@ -372,20 +375,20 @@ void Tree::modifyEmployee(string name,string newname, string salary){
 
 void Tree::deleteEmployee(std::string name){
 	Employee *worker=search(name,boss);
-	if(worker->juniors==nullptr){
-		if(worker->previous!=nullptr){
+	if(worker->juniors==nullptr){//having children exception handled
+		if(worker->previous!=nullptr){//unlink forwards
 			worker->previous->next=worker->next;
 		}
-		if(worker->next!=nullptr){
+		if(worker->next!=nullptr){//unlink backwards
 			worker->next->previous=worker->previous;
 		}
-		if(worker==worker->superior->juniors){
+		if(worker==worker->superior->juniors){//remove from parent
 			worker->superior->juniors=worker->next;
 		}
-		if(worker->superior!=nullptr){
+		if(worker->superior!=nullptr){//update parent breath
 			worker->superior->breath--;
 		}
-		delete worker;
+		delete worker;//delete node
 	}
 	else{
 		cout<<"Employee has subordinates, please shift them"<<endl;
@@ -396,37 +399,37 @@ void Tree::rankEmployees(string name, string senior){
 	Employee *worker=search(name,boss);
 	Employee *rank=search(senior,boss);
 	Employee *temp=worker;
-	if(worker==nullptr){
+	if(worker==nullptr){//found employee exception
 		cout<<"Employee not found"<<endl;
 	}
 	else{
-		if(rank==worker){
+		if(rank==worker){//self senior exception
 			cout<<"Employee can't outrank themselves"<<endl;
 		}
 		else{
-			if(rank==nullptr){
+			if(rank==nullptr){//if senior is empty, place at end of linked list
 				temp=worker;
-				while(temp->next!=nullptr){
+				while(temp->next!=nullptr){//temp is last node in linked list
 					temp=temp->next;
 				}
-				if(temp==worker){
+				if(temp==worker){//no other subordinate exception
 					cout<<"Can't change rank, only subordinate"<<endl;
 				}
-				else{
+				else{//relink worker to end
 					rank=temp;
 					rank->next=worker;
 					worker->previous=rank;	
 				}
 			}
 			else{
-				if(worker->superior==rank->superior){
-					if(rank->previous!=nullptr){
+				if(worker->superior==rank->superior){//same superior exception
+					if(rank->previous!=nullptr){//unlink
 						rank->previous->next=worker;
 					}
-					if(worker->previous!=nullptr){
+					if(worker->previous!=nullptr){//unlink
 						worker->previous->next=worker->next;
 					}
-					worker->previous=rank->previous;
+					worker->previous=rank->previous;//relink
 					worker->next=rank;
 					rank->previous=worker;
 					if(worker->superior->juniors==rank){
@@ -444,20 +447,20 @@ void Tree::rankEmployees(string name, string senior){
 Tree::~Tree(){
 	cout<<"Deconstructing..."<<endl;
 	Employee *temp;
-	names.clear();
+	names.clear();//reinitialize 2D vector
 	names.resize(maxDepth(boss));
 	makevector(boss);
-	for(int i=names.size()-1;i>0;i--){
-		for(int n=names[i].size()-1;n>=0;n--){
+	for(int i=names.size()-1;i>0;i--){//iterate through the 2D vector in reverse excluding the boss
+		for(int n=names[i].size()-1;n>=0;n--){//deleting the children backwards
 			temp=names[i][n];
 			cout<<"Deleting: "<<temp->name<<endl;
 			deleteEmployee(temp->name);
 		}
 	}
-	if(boss!=nullptr){
+	if(boss!=nullptr){//then delete the boss
 		cout<<"Deleting: "<<boss->name<<endl;
 		delete boss;
 	}
-	names.clear();
+	names.clear();//delete the 2D vector
 	cout<<"Done"<<endl;
 }

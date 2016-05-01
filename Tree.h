@@ -36,6 +36,7 @@ class Tree
 		void promoteEmployee(std::string name);//moves employee node up one step in tree if it has no children
 		void modifyEmployee(std::string name, std::string newname, std::string salary);//changes employee's rank and/or salary
 		void shiftEmployees(std::string name, std::string target);//moves subordinate employees to another superior.
+		void rankEmployees(std::string name, std::string senior);//moves employee to new rank
 		
 		void listEmployees();//prints out all employees in list
 		void printEmployees();//prints out all employees in tree (left justified)
