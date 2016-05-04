@@ -37,7 +37,7 @@ class Tree
 		void modifyEmployee(std::string name, std::string newname, std::string salary);//changes employee's rank and/or salary
 		void shiftEmployees(std::string name, std::string target);//moves subordinate employees to another superior.
 		void rankEmployees(std::string name, std::string senior);//moves employee to new rank
-		void makevector(Employee *root);//function creates 2D vector housing each node according to depth in tree and recursive access
+		
 		void listEmployees();//prints out all employees in list
 		void printEmployees();//prints out all employees in tree (left justified)
 		
@@ -47,6 +47,7 @@ class Tree
 		Employee *boss;//root of employee tree
 		Employee *search(std::string name,Employee *root);//find pointer to employee with name 'name' starting search from inputed root
 		void list(Employee *root);//function for recursive employee listing
+		void makevector(Employee *root);//function creates 2D vector housing each node according to depth in tree and recursive access
 		int maxDepth(Employee *root);//function finds max depth of tree and returns it
 		int maxBreath(Employee *node);//finds total breath of node and all nodes below it and returns it
 		int position(Employee *node);//finds how distanced children nodes should be when printed
